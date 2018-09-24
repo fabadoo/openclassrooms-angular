@@ -1,0 +1,16 @@
+<a [ngClass]="{
+  'list-group-item list-group-item-action flex-column align-items-start': true,
+  'list-group-item-success': post.loveIts>0,
+  'list-group-item-danger': post.loveIts<0}">
+  <div class="d-flex w-100 justify-content-between">
+    <h4 class="mb-1">{{ post.title }}</h4>
+    <small>{{ post.created_at | date: 'short' }}</small>
+  </div>
+  <p class="mb-1">{{ post.content }}</p>
+  <small><h2>
+    <button (click)="loveIt()" class="btn btn-success">Love IT</button>
+    <button (click)="dontLoveIt()" class="btn btn-danger">Don't love IT</button>
+    {{ post.loveIts }}
+    </h2>
+  </small>
+</a>
