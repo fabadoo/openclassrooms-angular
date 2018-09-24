@@ -7,7 +7,12 @@ import {Component} from '@angular/core';
 })
 export class AppComponent {
 
-  isAuth: false;
+  appareils = [
+    {name: 'Tv', status: false},
+    {name: 'Ordi', status: false},
+    {name: 'Phone', status: true}
+  ];
+  isAuth: Boolean = false;
   lastUpdate = new Promise((resolve, reject) => {
     const date = new Date();
     setTimeout(() => {
@@ -15,17 +20,9 @@ export class AppComponent {
     }, 2000);
   });
 
-  appareils = [
-    {name: 'Tv', status: false},
-    {name: 'Ordi', status: false},
-    {name: 'Phone', status: true}
-  ];
 
   constructor() {
-    setTimeout(
-      () => {
-        this.isAuth = true;
-      }, 4000);
+    setTimeout(() => { this.isAuth = true; }, 4000);
   }
 
   onToutAllumer() {
