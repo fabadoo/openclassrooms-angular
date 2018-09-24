@@ -1,5 +1,4 @@
-import { Component } from '@angular/core';
-import {Post} from './model/post';
+import {Component} from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -8,16 +7,29 @@ import {Post} from './model/post';
 })
 export class AppComponent {
 
-  text = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore ' +
-    'et dolore magna aliqua. Ut enim ad minim veniam, quis';
+  isAuth: false;
+  lastUpdate = new Promise((resolve, reject) => {
+    const date = new Date();
+    setTimeout(() => {
+      resolve(date);
+    }, 2000);
+  });
 
-  posts = [
-    new Post('Mon premier post', this.text),
-    new Post('Mon 2eme post', this.text),
-    new Post('Encore un post', this.text)
+  appareils = [
+    {name: 'Tv', status: false},
+    {name: 'Ordi', status: false},
+    {name: 'Phone', status: true}
   ];
 
   constructor() {
+    setTimeout(
+      () => {
+        this.isAuth = true;
+      }, 4000);
+  }
+
+  onToutAllumer() {
+    this.appareils.forEach(app => app.status = true );
   }
 
 }
