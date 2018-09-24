@@ -1,3 +1,4 @@
-<li [ngClass]="{'list-group-item': true, 'list-group-item-success': status,'list-group-item-danger': !status}">
-  <h2>{{ name }} -> {{ status ? 'Allumé' : 'Eteint'}}</h2>
+<li [ngClass]="{'list-group-item': true, 'list-group-item-success': appareil.status,'list-group-item-danger': !appareil.status}">
+  <h2 (click)="switch()">{{ appareil.name }} -> {{ appareil.status ? 'Allumé' : 'Eteint'}}</h2>
+  <a class="btn btn-primary" [routerLink]="[appareil.index]">Détails</a>
 </li>

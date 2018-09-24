@@ -4,17 +4,43 @@ import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { AppareilComponent } from './appareil/appareil.component';
+import {AppareilService} from './service/appareil.service';
+import { AppareilViewComponent } from './appareil-view/appareil-view.component';
+import {RouterModule, Routes} from '@angular/router';
+import {AuthService} from './service/auth.service';
+import { AuthComponent } from './auth/auth.component';
+import { SingleAppareilComponent } from './single-appareil/single-appareil.component';
+import { FourOFourComponent } from './four-o-four/four-o-four.component';
+import {AuthGuard} from './service/auth-guard.service';
+
+const appRoutes: Routes = [
+  { path: 'appareils', canActivate: [AuthGuard], component: AppareilViewComponent},
+  { path: 'appareils/:id', canActivate: [AuthGuard], component: SingleAppareilComponent},
+  { path: 'auth', component: AuthComponent},
+  { path: '', component: AppareilViewComponent},
+  { path: 'not-found', component: FourOFourComponent},
+  { path: '**', redirectTo: '/not-found'}
+];
 
 @NgModule({
   declarations: [
     AppComponent,
-    AppareilComponent
+    AuthComponent,
+    AppareilComponent,
+    AppareilViewComponent,
+    SingleAppareilComponent,
+    FourOFourComponent
   ],
   imports: [
     BrowserModule,
-    FormsModule
+    FormsModule,
+    RouterModule.forRoot(appRoutes)
   ],
-  providers: [],
+  providers: [
+    AppareilService,
+    AuthService,
+    AuthGuard
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

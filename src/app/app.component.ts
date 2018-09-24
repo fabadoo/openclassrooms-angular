@@ -1,32 +1,26 @@
-import {Component} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {interval, Observable, Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit, OnDestroy {
 
-  appareils = [
-    {name: 'Tv', status: false},
-    {name: 'Ordi', status: false},
-    {name: 'Phone', status: true}
-  ];
-  isAuth: Boolean = false;
-  lastUpdate = new Promise((resolve, reject) => {
-    const date = new Date();
-    setTimeout(() => {
-      resolve(date);
-    }, 2000);
-  });
+  secondes: number;
+  counterSubscription: Subscription;
 
+  constructor() {}
 
-  constructor() {
-    setTimeout(() => { this.isAuth = true; }, 4000);
+  ngOnInit(): void {
+    const counter = interval(1000);
+    this.counterSubscription = counter.subscribe(
+      (value) => this.secondes = value
+    );
   }
 
-  onToutAllumer() {
-    this.appareils.forEach(app => app.status = true );
+  ngOnDestroy(): void {
+    this.counterSubscription.unsubscribe();
   }
-
 }
