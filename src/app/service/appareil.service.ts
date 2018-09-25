@@ -1,4 +1,4 @@
-import {Appareil} from '../model/appareil';
+import {AppareilModel} from '../model/appareil.model';
 import {Subject} from 'rxjs';
 
 export class AppareilService {
@@ -6,9 +6,9 @@ export class AppareilService {
   appareilSubject = new Subject<any[]>();
 
   private appareils = [
-    new Appareil(1, 'Tv'),
-    new Appareil(2, 'Ordinateur'),
-    new Appareil(3, 'Phone')
+    new AppareilModel(1, 'Tv'),
+    new AppareilModel(2, 'Ordinateur'),
+    new AppareilModel(3, 'Phone')
   ];
 
   emitEppareilSubject() {
@@ -21,6 +21,12 @@ export class AppareilService {
 
   getBydId(index: number) {
     return this.appareils.find((obj) => obj.index === index);
+  }
+
+  add(name: string, status: boolean){
+    const newId = this.appareils[(this.appareils.length - 1)].index + 1;
+    this.appareils.push(new AppareilModel(newId, name, status));
+    this.emitEppareilSubject();
   }
 
   switchOne(index: number) {

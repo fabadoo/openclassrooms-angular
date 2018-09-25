@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { AppareilComponent } from './appareil/appareil.component';
@@ -12,10 +12,17 @@ import { AuthComponent } from './auth/auth.component';
 import { SingleAppareilComponent } from './single-appareil/single-appareil.component';
 import { FourOFourComponent } from './four-o-four/four-o-four.component';
 import {AuthGuard} from './service/auth-guard.service';
+import { EditAppareilComponent } from './edit-appareil/edit-appareil.component';
+import {UserService} from './service/user.service';
+import { UserListComponent } from './user-list/user-list.component';
+import { NewUserComponent } from './new-user/new-user.component';
 
 const appRoutes: Routes = [
   { path: 'appareils', canActivate: [AuthGuard], component: AppareilViewComponent},
   { path: 'appareils/:id', canActivate: [AuthGuard], component: SingleAppareilComponent},
+  { path: 'edit', canActivate: [AuthGuard], component: EditAppareilComponent},
+  { path: 'users', canActivate: [AuthGuard], component: UserListComponent},
+  { path: 'new-user', component: NewUserComponent},
   { path: 'auth', component: AuthComponent},
   { path: '', component: AppareilViewComponent},
   { path: 'not-found', component: FourOFourComponent},
@@ -29,17 +36,22 @@ const appRoutes: Routes = [
     AppareilComponent,
     AppareilViewComponent,
     SingleAppareilComponent,
-    FourOFourComponent
+    FourOFourComponent,
+    EditAppareilComponent,
+    NewUserComponent,
+    UserListComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    ReactiveFormsModule
   ],
   providers: [
     AppareilService,
     AuthService,
-    AuthGuard
+    AuthGuard,
+    UserService
   ],
   bootstrap: [AppComponent]
 })

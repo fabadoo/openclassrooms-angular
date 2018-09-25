@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Appareil} from '../model/appareil';
+import {AppareilModel} from '../model/appareil.model';
 import {AppareilService} from '../service/appareil.service';
 import {Subscription} from 'rxjs';
 import {a} from '@angular/core/src/render3';
@@ -11,7 +11,7 @@ import {a} from '@angular/core/src/render3';
 })
 export class AppareilViewComponent implements OnInit {
 
-  appareils: Appareil[];
+  appareils: AppareilModel[];
   appareilsSubscription: Subscription;
 
   isAuth: Boolean = false;
